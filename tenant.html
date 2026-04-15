@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Passport | FaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start p-6">
+
+    <div id="successMsg" class="hidden fixed top-10 left-6 right-6 z-50 p-4 bg-green-500 text-white rounded-2xl text-center font-bold shadow-2xl animate-bounce">
+        Report Received. 48h SLA Active.
+    </div>
+
+    <div class="w-full max-w-md flex justify-between items-center mb-8 pt-4">
+        <div class="text-xl font-bold tracking-tight">FaaS <span class="text-blue-400">DPP</span></div>
+        <div class="px-3 py-1 glass rounded-full text-[10px] uppercase tracking-widest font-bold">Verified Asset</div>
+    </div>
+
+    <div class="w-full max-w-md glass rounded-[32px] overflow-hidden mb-6">
+        <div class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
+            <div class="text-64px italic font-black opacity-10 select-none uppercase">Furniture</div>
+            <div class="absolute bottom-4 left-6">
+                <h2 class="text-2xl font-bold">Premium Mattress</h2>
+                <p class="text-gray-400 text-sm">Serial: DPP-8839-A</p>
+            </div>
+        </div>
+        
+        <div class="p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                <span class="text-gray-400 text-sm">Deployment Date</span>
+                <span class="text-sm font-medium">12 Jan 2026</span>
+            </div>
+            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                <span class="text-gray-400 text-sm">Fire Safety (UK)</span>
+                <span class="text-green-400 text-sm font-medium italic">Compliant ✓</span>
+            </div>
+            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                <span class="text-gray-400 text-sm">Recycle Value</span>
+                <span class="text-sm font-medium">85% Circular</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md space-y-4">
+        <button onclick="reportIssue()" class="w-full py-5 bg-white text-black rounded-2xl font-bold text-lg transition-transform active:scale-95 shadow-xl">
+            Report an Issue
+        </button>
+        <button class="w-full py-4 glass text-white rounded-2xl font-medium text-sm">
+            View Maintenance History
+        </button>
+    </div>
+
+    <p class="mt-8 text-center text-gray-500 text-xs px-10 leading-relaxed">
+        This item is managed by Furniture-as-a-Service. Professional maintenance is included in your landlord's subscription.
+    </p>
+
+    <script>
+        function reportIssue() {
+            document.getElementById('successMsg').classList.remove('hidden');
+            setTimeout(() => {
+                alert("This report has been logged. The landlord's dashboard has been updated and a replacement has been triggered via our 3PL partner.");
+            }, 500);
+        }
+    </script>
+</body>
+</html>

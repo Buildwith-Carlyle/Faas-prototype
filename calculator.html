@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator | FaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f5f5f7; 
+            color: #1d1d1f; 
+            background-image: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(147, 51, 234, 0.05), transparent 40%);
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+
+    <div class="w-full max-w-3xl bg-white/70 backdrop-blur-2xl rounded-[32px] shadow-[0_8px_40px_rgba(0,0,0,0.04)] border border-white overflow-hidden relative">
+        
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="p-10 md:p-14">
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Calculate Your ROI</h1>
+                <p class="text-gray-500 font-medium">See how much upfront capital you unlock by switching to FaaS.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Number of Properties / Rooms</label>
+                        <div class="relative">
+                            <input type="number" id="rooms" value="5" oninput="calculateROI()" class="w-full bg-[#f5f5f7] border-2 border-transparent rounded-2xl px-5 py-4 text-lg font-medium focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Traditional Setup Cost per Room</label>
+                        <div class="relative">
+                            <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-medium text-lg">£</span>
+                            <input type="number" id="capex" value="1500" oninput="calculateROI()" class="w-full bg-[#f5f5f7] border-2 border-transparent rounded-2xl pl-10 pr-5 py-4 text-lg font-medium focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">FaaS Subscription per Room (Monthly)</label>
+                        <div class="relative">
+                            <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-medium text-lg">£</span>
+                            <input type="number" id="opex" value="140" readonly class="w-full bg-gray-100 border-2 border-transparent rounded-2xl pl-10 pr-5 py-4 text-lg font-medium text-gray-500 cursor-not-allowed">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 rounded-[24px] p-8 text-white shadow-xl flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+
+                    <div class="mb-8 relative z-10">
+                        <p class="text-gray-400 text-sm font-medium mb-1 uppercase tracking-wider">Upfront Cash Saved (CapEx)</p>
+                        <h2 class="text-5xl font-bold tracking-tight text-white mb-2" id="savedCash">£7,500</h2>
+                        <p class="text-green-400 text-sm font-medium">Keep this in your bank account today.</p>
+                    </div>
+
+                    <div class="space-y-4 relative z-10">
+                        <div class="flex justify-between items-center pb-4 border-b border-gray-700/50">
+                            <span class="text-gray-400 text-sm">New Monthly Cost (OpEx)</span>
+                            <span class="font-semibold text-lg" id="monthlyCost">£700</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-4 border-b border-gray-700/50">
+                            <span class="text-gray-400 text-sm">Tax Deductible</span>
+                            <span class="font-semibold text-green-400">100% (Year 1)</span>
+                        </div>
+                    </div>
+
+                    <button onclick="alert('Demo: Redirecting to Lead Capture Form...')" class="mt-8 w-full bg-blue-600 hover:bg-blue-500 text-white rounded-xl py-4 font-semibold transition-colors shadow-lg active:scale-95">
+                        Join VIP Pilot Waitlist
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateROI() {
+            const rooms = document.getElementById('rooms').value || 0;
+            const capex = document.getElementById('capex').value || 0;
+            const opex = 140; // Fixed FaaS Tier
+
+            const savedCash = rooms * capex;
+            const monthlyCost = rooms * opex;
+
+            // Format numbers with commas (e.g., 7,500)
+            document.getElementById('savedCash').innerText = '£' + savedCash.toLocaleString();
+            document.getElementById('monthlyCost').innerText = '£' + monthlyCost.toLocaleString();
+        }
+        
+        // Run once on load to set initial values
+        calculateROI();
+    </script>
+</body>
+</html>

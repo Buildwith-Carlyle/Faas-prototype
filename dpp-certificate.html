@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPP Verified Certificate | FaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fafafa; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .cert-border { border: 2px solid #e5e7eb; position: relative; }
+        .cert-border::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <div class="max-w-4xl mx-auto bg-white cert-border shadow-2xl p-8 md:p-16">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start mb-12 border-b pb-8">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tighter uppercase mb-2">Digital Product Passport</h1>
+                <p class="text-gray-500 text-sm mono">ASSET_ID: <span class="text-blue-600">FAAS-UK-MATTRESS-00832</span></p>
+            </div>
+            <div class="mt-4 md:mt-0 text-right">
+                <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded font-bold text-xs mb-2">CIRCULARITY GRADE: A+</div>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Verified by FaaS Protocol 2026</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <h3 class="text-xs font-bold text-gray-400 uppercase mb-4 tracking-widest">Material Composition</h3>
+                <ul class="text-sm space-y-2">
+                    <li class="flex justify-between"><span>Recycled Steel</span> <span class="font-bold">45%</span></li>
+                    <li class="flex justify-between"><span>Organic Cotton</span> <span class="font-bold">30%</span></li>
+                    <li class="flex justify-between"><span>Eco-Polymer</span> <span class="font-bold">25%</span></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xs font-bold text-gray-400 uppercase mb-4 tracking-widest">ESG Impact</h3>
+                <div class="bg-green-50 p-4 rounded-xl">
+                    <div class="text-2xl font-bold text-green-700">142kg</div>
+                    <p class="text-[10px] text-green-600 font-bold uppercase">CO2 Emissions Avoided</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-xs font-bold text-gray-400 uppercase mb-4 tracking-widest">Compliance Vault</h3>
+                <a href="#" class="block text-sm text-blue-600 underline mb-2 italic">BS 7177:2008 (Fire Safety)</a>
+                <a href="#" class="block text-sm text-blue-600 underline italic">OEKO-TEX® Standard 100</a>
+            </div>
+        </div>
+
+        <div class="mb-12">
+            <h3 class="text-xs font-bold text-gray-400 uppercase mb-6 tracking-widest text-center">Lifecycle Events</h3>
+            <div class="relative space-y-8">
+                <div class="flex items-center">
+                    <div class="w-24 text-xs mono text-gray-400">JAN 2026</div>
+                    <div class="w-4 h-4 rounded-full bg-blue-500 mx-4 shadow-lg"></div>
+                    <div class="flex-1 bg-gray-50 p-3 rounded-lg border">
+                        <p class="text-sm font-bold">Manufacturing Complete</p>
+                        <p class="text-xs text-gray-500">Facility: Manchester Eco-Plant (Facility #12)</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-24 text-xs mono text-gray-400">FEB 2026</div>
+                    <div class="w-4 h-4 rounded-full bg-green-500 mx-4"></div>
+                    <div class="flex-1 bg-gray-50 p-3 rounded-lg border">
+                        <p class="text-sm font-bold">First Deployment</p>
+                        <p class="text-xs text-gray-500">Location: Wembley Park Development - Unit 4</p>
+                    </div>
+                </div>
+                <div class="flex items-center italic opacity-50">
+                    <div class="w-24 text-xs mono text-gray-400">PENDING</div>
+                    <div class="w-4 h-4 border-2 border-gray-300 rounded-full mx-4"></div>
+                    <div class="flex-1 bg-white p-3 rounded-lg border-dashed border-2">
+                        <p class="text-sm font-bold">Refurbishment & Re-deployment</p>
+                        <p class="text-xs text-gray-500 underline">Scheduled for End of Subscription cycle</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 pt-8 border-t flex justify-between items-center">
+            <div class="text-[10px] text-gray-400 mono">FaaS PROTOCOL v1.02 // DISTRIBUTED LEDGER VERIFIED</div>
+            <button onclick="window.print()" class="bg-black text-white text-xs px-6 py-2 rounded-full font-bold hover:bg-gray-800 transition">DOWNLOAD PDF CERTIFICATE</button>
+        </div>
+    </div>
+    
+    <div class="text-center mt-8">
+        <a href="index.html" class="text-sm text-gray-400 hover:text-blue-600 transition">&larr; Return to Dashboard</a>
+    </div>
+
+</body>
+</html>

@@ -30,17 +30,33 @@
                 modal.classList.remove('modal-visible');
                 modal.classList.add('modal-hidden');
             }
-        }
-        function submitOrder(event) {
-            event.preventDefault();
-            alert("Deployment Confirmed. Our logistics team will dispatch within 48 hours.");
-            toggleModal();
+function toggleTheme() {
+            const body = document.body;
+            const sidebar = document.getElementById('sidebar');
+            
+            if (body.classList.contains('bg-[#f5f5f7]')) {
+                // SWITCH TO DARK
+                body.classList.remove('bg-[#f5f5f7]', 'text-[#1d1d1f]');
+                body.classList.add('bg-gray-900', 'text-white');
+                sidebar.classList.replace('bg-white', 'bg-gray-800');
+                sidebar.classList.replace('border-gray-200/60', 'border-gray-700');
+                document.getElementById('themeIcon').innerHTML = '☀️';
+                document.getElementById('themeText').innerText = 'Light Mode';
+            } else {
+                // SWITCH TO LIGHT
+                body.classList.remove('bg-gray-900', 'text-white');
+                body.classList.add('bg-[#f5f5f7]', 'text-[#1d1d1f]');
+                sidebar.classList.replace('bg-gray-800', 'bg-white');
+                sidebar.classList.replace('border-gray-700', 'border-gray-200/60');
+                document.getElementById('themeIcon').innerHTML = '🌙';
+                document.getElementById('themeText').innerText = 'Dark Mode';
+            }
         }
     </script>
 </head>
-<body class="h-screen overflow-hidden flex">
+<body class="h-screen overflow-hidden flex bg-[#f5f5f7] text-[#1d1d1f] transition-colors duration-500">
 
-    <aside class="w-64 bg-[#f5f5f7]/80 backdrop-blur-xl border-r border-gray-200/60 flex flex-col z-10">
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200/60 flex flex-col z-10 transition-colors duration-500">
         <div class="h-20 flex items-center px-8 font-semibold text-xl tracking-tight">
             FaaS <span class="text-gray-400 font-light ml-1">Portal</span>
         </div>
@@ -56,6 +72,12 @@
                 Maintenance
                 <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">1</span>
             </a>
+            <div class="px-8 py-6 border-t border-gray-200/60 mt-auto">
+            <button onclick="toggleTheme()" class="flex items-center gap-3 text-sm font-medium text-gray-500 hover:text-blue-600 transition-all active:scale-95">
+                <span id="themeIcon" class="text-lg">🌙</span>
+                <span id="themeText">Dark Mode</span>
+            </button>
+        </div>
             <a href="#" class="block px-4 py-2.5 text-gray-500 hover:bg-gray-200/50 rounded-xl text-sm font-medium transition-colors">ESG Reporting</a>
         </nav>
         <div class="p-6">

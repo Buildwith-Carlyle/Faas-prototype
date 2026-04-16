@@ -19,15 +19,32 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
     <script>
+        // 1. Checks global memory on load
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // 2. Flips the switch and saves to memory
         function toggleTheme() {
             const html = document.documentElement;
-            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            
             // Update the text label next to the toggle
             const themeText = document.getElementById('themeText');
             if(themeText) {
                 themeText.innerText = html.classList.contains('dark') ? 'Dark Mode' : 'Light Mode';
             }
         }
+
+        // 3. Sidebar Logic
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
             document.getElementById('sidebarOverlay').classList.toggle('hidden');

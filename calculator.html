@@ -86,14 +86,14 @@
                         <div>
                             <label class="block text-xs md:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Number of Properties / Rooms</label>
                             <div class="relative">
-                                <input type="number" id="rooms" value="15" oninput="calculateROI()" class="w-full bg-[#f5f5f7] dark:bg-black border-2 border-transparent dark:border-white/5 rounded-2xl px-5 py-4 text-lg font-medium text-gray-900 dark:text-white focus:bg-white dark:focus:bg-[#121214] focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all">
+                                <input type="number" id="rooms" value="15" class="w-full bg-[#f5f5f7] dark:bg-black border-2 border-transparent dark:border-white/5 rounded-2xl px-5 py-4 text-lg font-medium text-gray-900 dark:text-white focus:bg-white dark:focus:bg-[#121214] focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all">
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs md:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Traditional Setup Cost per Room</label>
                             <div class="relative">
                                 <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-medium text-lg">£</span>
-                                <input type="number" id="capex" value="2500" oninput="calculateROI()" class="w-full bg-[#f5f5f7] dark:bg-black border-2 border-transparent dark:border-white/5 rounded-2xl pl-10 pr-5 py-4 text-lg font-medium text-gray-900 dark:text-white focus:bg-white dark:focus:bg-[#121214] focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all">
+                                <input type="number" id="capex" value="2500" class="w-full bg-[#f5f5f7] dark:bg-black border-2 border-transparent dark:border-white/5 rounded-2xl pl-10 pr-5 py-4 text-lg font-medium text-gray-900 dark:text-white focus:bg-white dark:focus:bg-[#121214] focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all">
                             </div>
                         </div>
                         <div>
@@ -136,4 +136,31 @@
     </main>
 
     <script>
-        // Restored Original Calculation Logic
+        function calculateROI() {
+            // Grab the raw text from the input boxes
+            const rawRooms = document.getElementById('rooms').value;
+            const rawCapex = document.getElementById('capex').value;
+            
+            // Force the text into hard Math integers (defaults to 0 if blank)
+            const rooms = parseInt(rawRooms) || 0;
+            const capex = parseInt(rawCapex) || 0;
+            const opex = 140; // Fixed FaaS Tier
+
+            // Run the Math
+            const savedCash = rooms * capex;
+            const monthlyCost = rooms * opex;
+
+            // Format with commas and push to the screen
+            document.getElementById('savedCash').innerText = '£' + savedCash.toLocaleString('en-GB');
+            document.getElementById('monthlyCost').innerText = '£' + monthlyCost.toLocaleString('en-GB');
+        }
+        
+        // Listen to the inputs actively
+        document.getElementById('rooms').addEventListener('input', calculateROI);
+        document.getElementById('capex').addEventListener('input', calculateROI);
+
+        // Run once immediately so the starting £37,500 is accurate
+        calculateROI();
+    </script>
+</body>
+</html>

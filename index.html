@@ -1,17 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landlord Portal | FaaS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            bg: '#f5f5f7',
+                            darkBg: '#000000',
+                            card: '#ffffff',
+                            darkCard: '#1c1c1e',
+                            border: '#e5e7eb',
+                            darkBorder: '#38383a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { 
-            font-family: 'Inter', sans-serif; 
-            /* Removed the hardcoded colors here so the JS can do its job! */
-        }
-        /* Smooth modal animation */
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Smooth animations */
+        * { transition-property: color, background-color, border-color; transition-duration: 300ms; transition-timing-function: ease-in-out; }
+        
         #orderModal { transition: opacity 0.3s ease; }
         .modal-content { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .modal-hidden { opacity: 0; pointer-events: none; }
@@ -19,6 +40,7 @@
         .modal-visible { opacity: 1; pointer-events: auto; }
         .modal-visible .modal-content { transform: scale(1) translateY(0); }
     </style>
+
     <script>
         function toggleModal() {
             const modal = document.getElementById('orderModal');
@@ -31,26 +53,19 @@
             }
         }
 
+        // UPGRADED "APPLE-STYLE" THEME BRAIN
         function toggleTheme() {
-            const body = document.body;
-            const sidebar = document.getElementById('sidebar');
+            const html = document.documentElement;
             const themeIcon = document.getElementById('themeIcon');
             const themeText = document.getElementById('themeText');
             
-            if (body.classList.contains('bg-[#f5f5f7]')) {
-                // SWITCH TO DARK
-                body.classList.remove('bg-[#f5f5f7]', 'text-[#1d1d1f]');
-                body.classList.add('bg-gray-900', 'text-white');
-                sidebar.classList.replace('bg-white', 'bg-gray-800');
-                sidebar.classList.replace('border-gray-200/60', 'border-gray-700');
+            // Toggle the 'dark' class on the very root of the document
+            html.classList.toggle('dark');
+            
+            if (html.classList.contains('dark')) {
                 themeIcon.innerHTML = '☀️';
                 themeText.innerText = 'Light Mode';
             } else {
-                // SWITCH TO LIGHT
-                body.classList.remove('bg-gray-900', 'text-white');
-                body.classList.add('bg-[#f5f5f7]', 'text-[#1d1d1f]');
-                sidebar.classList.replace('bg-gray-800', 'bg-white');
-                sidebar.classList.replace('border-gray-700', 'border-gray-200/60');
                 themeIcon.innerHTML = '🌙';
                 themeText.innerText = 'Dark Mode';
             }
@@ -63,42 +78,36 @@
         }
     </script>
 </head>
-<body class="h-screen overflow-hidden flex bg-[#f5f5f7] text-[#1d1d1f] transition-colors duration-500">
 
-   <aside id="sidebar" class="w-64 bg-white border-r border-gray-200/60 flex flex-col z-10 transition-colors duration-500">
-        <div class="h-20 flex items-center px-8 font-semibold text-xl tracking-tight">
+<body class="h-screen overflow-hidden flex bg-apple-bg dark:bg-apple-darkBg text-gray-900 dark:text-gray-100 antialiased">
+
+   <aside id="sidebar" class="w-64 bg-apple-card dark:bg-apple-darkCard border-r border-apple-border dark:border-apple-darkBorder flex flex-col z-10">
+        <div class="h-20 flex items-center px-8 font-semibold text-xl tracking-tight text-black dark:text-white">
             FaaS <span class="text-gray-400 font-light ml-1">Portal</span>
         </div>
+        
         <nav class="flex-1 px-4 py-4 space-y-1 flex flex-col">
-            <a href="index.html" class="block px-4 py-2.5 bg-white rounded-xl text-sm font-medium shadow-sm border border-gray-100 text-blue-600">Overview</a>
-            <a href="#" class="block px-4 py-2.5 text-gray-500 hover:bg-gray-200/50 rounded-xl text-sm font-medium transition-colors">Properties (DPP)</a>
-            
-            <a href="calculator.html" class="block px-4 py-2.5 text-gray-500 hover:bg-gray-200/50 rounded-xl text-sm font-medium transition-colors border-l-2 border-transparent hover:border-purple-500">
-                💰 ROI Calculator
-            </a>
-            
-            <a href="tenant.html" class="flex justify-between items-center px-4 py-2.5 text-gray-500 hover:bg-gray-200/50 rounded-xl text-sm font-medium transition-colors">
+            <a href="index.html" class="block px-4 py-2.5 bg-white dark:bg-white/10 rounded-xl text-sm font-medium shadow-sm border border-gray-100 dark:border-white/5 text-blue-600 dark:text-blue-400">Overview</a>
+            <a href="#" class="block px-4 py-2.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl text-sm font-medium">Properties (DPP)</a>
+            <a href="calculator.html" class="block px-4 py-2.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl text-sm font-medium">💰 ROI Calculator</a>
+            <a href="tenant.html" class="flex justify-between items-center px-4 py-2.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl text-sm font-medium">
                 Maintenance
                 <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">1</span>
             </a>
             
-            <div class="px-4 py-4 border-t border-gray-100 mt-auto">
-                <button onclick="toggleTheme()" class="w-full flex items-center gap-3 text-sm font-medium text-gray-500 hover:text-blue-600 transition-all cursor-pointer bg-transparent border-none p-0 outline-none">
+            <div class="mt-auto pt-4 border-t border-apple-border dark:border-apple-darkBorder space-y-2">
+                <a href="#" class="block px-4 py-2.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl text-sm font-medium">ESG Reporting</a>
+                
+                <button onclick="toggleTheme()" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl cursor-pointer bg-transparent border-none outline-none">
                     <span id="themeIcon" class="text-lg">🌙</span>
                     <span id="themeText">Dark Mode</span>
                 </button>
-            </div>
 
-            <div class="px-0 py-2">
-                <a href="#" class="block px-4 py-2.5 text-gray-500 hover:bg-gray-200/50 rounded-xl text-sm font-medium transition-colors">ESG Reporting</a>
-            </div>
-            
-            <div class="px-2 py-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 shadow-sm"></div>
-                    <div class="text-xs">
-                        <p class="font-semibold text-gray-800">Portfolio A</p>
-                        <p class="text-gray-500">Pro Tier</p>
+                <div class="px-4 py-3 mt-2 flex items-center gap-3 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-100 dark:border-white/5">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 shadow-sm shrink-0"></div>
+                    <div class="text-xs truncate">
+                        <p class="font-semibold text-gray-800 dark:text-white truncate">Portfolio A</p>
+                        <p class="text-gray-500 dark:text-gray-400">Pro Tier</p>
                     </div>
                 </div>
             </div>
@@ -106,9 +115,9 @@
     </aside>
 
     <main class="flex-1 flex flex-col relative overflow-y-auto">
-        <header class="sticky top-0 h-20 bg-[#f5f5f7]/80 backdrop-blur-md flex items-center justify-between px-10 z-0">
-            <h1 class="text-2xl font-semibold tracking-tight">Dashboard</h1>
-            <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-all duration-300 shadow-sm active:scale-95">
+        <header class="sticky top-0 h-20 bg-apple-bg/80 dark:bg-apple-darkBg/80 backdrop-blur-md flex items-center justify-between px-10 z-20 border-b border-transparent dark:border-white/5">
+            <h1 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Dashboard</h1>
+            <button onclick="toggleModal()" class="bg-black dark:bg-white text-white dark:text-black px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 shadow-sm active:scale-95">
                 + New Deployment
             </button>
         </header>
@@ -116,55 +125,55 @@
         <div class="px-10 pb-10 pt-4">
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-                <div class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100 transition-transform hover:-translate-y-1 duration-300">
-                    <div class="text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Active Rooms</div>
-                    <div class="text-3xl font-semibold">15</div>
+                <div class="bg-apple-card dark:bg-apple-darkCard p-6 rounded-2xl shadow-sm border border-apple-border dark:border-apple-darkBorder hover:-translate-y-1 transform">
+                    <div class="text-xs font-medium text-gray-400 dark:text-gray-500 mb-2 uppercase tracking-wider">Active Rooms</div>
+                    <div class="text-3xl font-semibold text-gray-900 dark:text-white">15</div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100 transition-transform hover:-translate-y-1 duration-300">
-                    <div class="text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Monthly OpEx</div>
-                    <div class="text-3xl font-semibold">£2,700</div>
+                <div class="bg-apple-card dark:bg-apple-darkCard p-6 rounded-2xl shadow-sm border border-apple-border dark:border-apple-darkBorder hover:-translate-y-1 transform">
+                    <div class="text-xs font-medium text-gray-400 dark:text-gray-500 mb-2 uppercase tracking-wider">Monthly OpEx</div>
+                    <div class="text-3xl font-semibold text-gray-900 dark:text-white">£2,700</div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100 transition-transform hover:-translate-y-1 duration-300">
-                    <div class="text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">CapEx Saved</div>
-                    <div class="text-3xl font-semibold text-green-600">£22,500</div>
+                <div class="bg-apple-card dark:bg-apple-darkCard p-6 rounded-2xl shadow-sm border border-apple-border dark:border-apple-darkBorder hover:-translate-y-1 transform">
+                    <div class="text-xs font-medium text-gray-400 dark:text-gray-500 mb-2 uppercase tracking-wider">CapEx Saved</div>
+                    <div class="text-3xl font-semibold text-green-600 dark:text-green-500">£22,500</div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100 transition-transform hover:-translate-y-1 duration-300">
-                    <div class="text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Carbon Offset</div>
-                    <div class="text-3xl font-semibold text-blue-600">840 <span class="text-lg text-gray-400 font-normal">kg</span></div>
+                <div class="bg-apple-card dark:bg-apple-darkCard p-6 rounded-2xl shadow-sm border border-apple-border dark:border-apple-darkBorder hover:-translate-y-1 transform">
+                    <div class="text-xs font-medium text-gray-400 dark:text-gray-500 mb-2 uppercase tracking-wider">Carbon Offset</div>
+                    <div class="text-3xl font-semibold text-blue-600 dark:text-blue-500">840 <span class="text-lg text-gray-400 dark:text-gray-600 font-normal">kg</span></div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
+                <div class="bg-apple-card dark:bg-apple-darkCard p-6 rounded-[24px] border border-apple-border dark:border-apple-darkBorder shadow-sm">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Circularity Goal</h3>
+                        <h3 class="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Circularity Goal</h3>
                         <span class="text-green-500 font-bold text-sm">82%</span>
                     </div>
-                    <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
+                    <div class="w-full bg-gray-100 dark:bg-gray-800 h-3 rounded-full overflow-hidden">
                         <div class="bg-green-500 h-full w-[82%] rounded-full shadow-[0_0_12px_rgba(34,197,94,0.4)]"></div>
                     </div>
-                    <p class="mt-3 text-xs text-gray-500 italic">You are 18% away from a fully circular furniture estate.</p>
+                    <p class="mt-3 text-xs text-gray-500 dark:text-gray-400 italic">You are 18% away from a fully circular furniture estate.</p>
                 </div>
                 
-                <div class="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Market Comparison</h3>
+                <div class="bg-apple-card dark:bg-apple-darkCard p-6 rounded-[24px] border border-apple-border dark:border-apple-darkBorder shadow-sm">
+                    <h3 class="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">Market Comparison</h3>
                     <div class="flex items-end gap-2 h-12">
-                        <div class="bg-gray-200 w-full h-[100%] rounded-t-sm"></div>
+                        <div class="bg-gray-200 dark:bg-gray-700 w-full h-[100%] rounded-t-sm"></div>
                         <div class="bg-blue-500 w-full h-[30%] rounded-t-sm"></div>
                     </div>
-                    <div class="flex justify-between mt-2 text-[10px] font-bold text-gray-400 uppercase">
+                    <div class="flex justify-between mt-2 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase">
                         <span>Industry Avg</span>
-                        <span class="text-blue-600">Your Portfolio (FaaS)</span>
+                        <span class="text-blue-600 dark:text-blue-400">Your Portfolio (FaaS)</span>
                     </div>
                 </div>
             </div>
 
-            <h2 class="text-lg font-semibold mb-4 px-1">Digital Product Passport</h2>
-            <div class="bg-white rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100 overflow-hidden">
+            <h2 class="text-lg font-semibold mb-4 px-1 text-gray-900 dark:text-white">Digital Product Passport</h2>
+            <div class="bg-apple-card dark:bg-apple-darkCard rounded-2xl shadow-sm border border-apple-border dark:border-apple-darkBorder overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="border-b border-gray-100 text-xs font-medium text-gray-400 tracking-wider">
+                            <tr class="border-b border-apple-border dark:border-apple-darkBorder text-xs font-medium text-gray-400 dark:text-gray-500 tracking-wider">
                                 <th class="px-6 py-4">Asset ID</th>
                                 <th class="px-6 py-4">Item</th>
                                 <th class="px-6 py-4">Location</th>
@@ -172,31 +181,31 @@
                                 <th class="px-6 py-4 text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-sm divide-y divide-gray-50">
-                            <tr class="group hover:bg-[#f5f5f7]/50 transition-colors duration-200">
-                                <td class="px-6 py-5 font-mono text-xs text-gray-400 group-hover:text-black transition-colors">DPP-8839-A</td>
-                                <td class="px-6 py-5 font-medium">Premium Mattress</td>
-                                <td class="px-6 py-5 text-gray-500">Unit 4, Wembley Park</td>
+                        <tbody class="text-sm divide-y divide-gray-50 dark:divide-white/5">
+                            <tr class="group hover:bg-gray-50 dark:hover:bg-white/5">
+                                <td class="px-6 py-5 font-mono text-xs text-gray-400 dark:text-gray-500 group-hover:text-black dark:group-hover:text-white">DPP-8839-A</td>
+                                <td class="px-6 py-5 font-medium text-gray-900 dark:text-gray-200">Premium Mattress</td>
+                                <td class="px-6 py-5 text-gray-500 dark:text-gray-400">Unit 4, Wembley Park</td>
                                 <td class="px-6 py-5">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-100">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 border border-green-100 dark:border-green-500/20">
                                         <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Active
                                     </span>
                                 </td>
                                 <td class="px-6 py-5 text-right">
-                                   <a href="dpp-certificate.html" class="text-blue-500 hover:text-blue-700 font-medium underline underline-offset-4 transition-colors">View Passport</a>
+                                   <a href="dpp-certificate.html" class="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium underline underline-offset-4">View Passport</a>
                                 </td>
                             </tr>
-                            <tr class="group hover:bg-[#f5f5f7]/50 transition-colors duration-200">
-                                <td class="px-6 py-5 font-mono text-xs text-gray-400 group-hover:text-black transition-colors">DPP-1142-B</td>
-                                <td class="px-6 py-5 font-medium">3-Seater Sofa</td>
-                                <td class="px-6 py-5 text-gray-500">Unit 2, Wembley Park</td>
+                            <tr class="group hover:bg-gray-50 dark:hover:bg-white/5">
+                                <td class="px-6 py-5 font-mono text-xs text-gray-400 dark:text-gray-500 group-hover:text-black dark:group-hover:text-white">DPP-1142-B</td>
+                                <td class="px-6 py-5 font-medium text-gray-900 dark:text-gray-200">3-Seater Sofa</td>
+                                <td class="px-6 py-5 text-gray-500 dark:text-gray-400">Unit 2, Wembley Park</td>
                                 <td class="px-6 py-5">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 border border-orange-100">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 border border-orange-100 dark:border-orange-500/20">
                                         <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span> Dispatching
                                     </span>
                                 </td>
                                 <td class="px-6 py-5 text-right">
-                                   <a href="dpp-certificate.html" class="text-blue-500 hover:text-blue-700 font-medium underline underline-offset-4 transition-colors">View Passport</a>
+                                   <a href="dpp-certificate.html" class="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium underline underline-offset-4">View Passport</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -207,12 +216,12 @@
     </main>
 
     <div id="orderModal" class="modal-hidden fixed inset-0 z-50 flex items-center justify-center">
-        <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" onclick="toggleModal()"></div>
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="toggleModal()"></div>
         
-        <div class="modal-content relative bg-white/90 backdrop-blur-xl border border-white/20 rounded-[24px] shadow-2xl w-full max-w-md p-8 m-4">
+        <div class="modal-content relative bg-white dark:bg-apple-darkCard border border-white/20 dark:border-white/10 rounded-[24px] shadow-2xl w-full max-w-md p-8 m-4">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-semibold tracking-tight">Deploy New Unit</h3>
-                <button onclick="toggleModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors">
+                <h3 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Deploy New Unit</h3>
+                <button onclick="toggleModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
                     &times;
                 </button>
             </div>
@@ -220,12 +229,12 @@
             <form onsubmit="submitOrder(event)">
                 <div class="space-y-5">
                     <div>
-                        <label class="block text-xs font-medium text-gray-500 mb-1.5 ml-1">Property Address</label>
-                        <input type="text" required class="w-full bg-[#f5f5f7] border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" placeholder="e.g., Flat 12, High Street">
+                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 ml-1">Property Address</label>
+                        <input type="text" required class="w-full bg-gray-50 dark:bg-black border border-transparent dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:bg-white dark:focus:bg-black text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 outline-none" placeholder="e.g., Flat 12, High Street">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-gray-500 mb-1.5 ml-1">Subscription Tier</label>
-                        <select class="w-full bg-[#f5f5f7] border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all appearance-none cursor-pointer">
+                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 ml-1">Subscription Tier</label>
+                        <select class="w-full bg-gray-50 dark:bg-black border border-transparent dark:border-white/10 rounded-xl px-4 py-3 text-sm focus:bg-white dark:focus:bg-black text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 outline-none appearance-none cursor-pointer">
                             <option>Essential Tier (£140/mo)</option>
                             <option>Premium Tier (£180/mo)</option>
                             <option>Corporate BTR (Custom)</option>
@@ -234,8 +243,8 @@
                 </div>
                 
                 <div class="flex justify-end gap-3 mt-8">
-                    <button type="button" onclick="toggleModal()" class="px-5 py-2.5 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">Cancel</button>
-                    <button type="submit" class="px-5 py-2.5 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-transform active:scale-95 shadow-md">Confirm</button>
+                    <button type="button" onclick="toggleModal()" class="px-5 py-2.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10">Cancel</button>
+                    <button type="submit" class="px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black rounded-full text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 active:scale-95 shadow-md">Confirm</button>
                 </div>
             </form>
         </div>

@@ -8,7 +8,7 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: { extend: { colors: { apple: { bg: '#f5f5f7', darkBg: '#000000', card: '#ffffff', darkCard: '#1c1c1e', border: '#e5e7eb', darkBorder: '#38383a' } } } }
+            theme: { extend: { colors: { apple: { bg: '#f5f5f7', darkBg: '#0a0a0c', card: '#ffffff', darkCard: '#1c1c1e', border: '#e5e7eb', darkBorder: '#38383a' } } } }
         }
     </script>
     <style>
@@ -16,23 +16,34 @@
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         * { transition-property: background-color, border-color, color; transition-duration: 300ms; transition-timing-function: ease-in-out; }
     </style>
+
     <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
         function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
         }
     </script>
 </head>
 <body class="min-h-screen bg-apple-bg dark:bg-apple-darkBg text-gray-900 dark:text-white antialiased flex flex-col">
 
-    <header class="h-20 bg-apple-card/80 dark:bg-apple-darkCard/80 backdrop-blur-xl border-b border-apple-border dark:border-apple-darkBorder flex items-center justify-between px-6 md:px-10 sticky top-0 z-50">
+    <header class="h-20 flex items-center justify-between px-8 w-full">
+        <a href="dashboard.html" class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors text-sm font-medium">
+            &larr; Back to Dashboard
+        </a>
         <div class="flex items-center gap-4">
-            <a href="dashboard.html" class="flex items-center gap-2 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors text-sm font-medium">
-                &larr; Back to Dashboard
-            </a>
-        </div>
-        <div class="flex items-center gap-4">
-            <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Global Registry</span>
-            
+            <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Global Registry</span>
             <button onclick="toggleTheme()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 dark:bg-gray-700 transition-colors duration-300 focus:outline-none shadow-inner">
                 <span class="inline-block h-4 w-4 transform rounded-full bg-white dark:bg-gray-400 shadow transition-transform duration-300 translate-x-1 dark:translate-x-6"></span>
             </button>
@@ -41,32 +52,32 @@
 
     <main class="flex-1 flex items-center justify-center p-6">
         
-        <div class="w-full max-w-md bg-gradient-to-br from-blue-600 to-blue-800 rounded-[32px] shadow-2xl overflow-hidden border border-white/10 relative">
+        <div class="w-full max-w-md bg-[#2563eb] rounded-[32px] overflow-hidden border border-white/10 shadow-2xl pb-2">
             
-            <div class="absolute -top-24 -right-24 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
-
             <div class="p-8 text-white relative z-10">
-                <div class="flex justify-between items-start mb-8">
+                
+                <div class="flex justify-between items-start mb-6">
                     <div>
-                        <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center gap-2 mb-1">
                             <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                            <p class="text-blue-200 text-[10px] uppercase font-bold tracking-widest">Official Verified Passport</p>
+                            <p class="text-blue-200 text-[9px] uppercase font-bold tracking-widest">Official Verified Passport</p>
                         </div>
                         <h1 class="text-3xl font-bold tracking-tight">DPP-8839-A</h1>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-xl shadow-inner">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-lg shadow-inner">
                         🛋️
                     </div>
                 </div>
                 
-                <div class="space-y-4">
-                    <div class="p-5 bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl">
-                        <p class="text-[10px] text-blue-200 uppercase font-bold tracking-widest mb-1">Item Classification</p>
-                        <p class="text-xl font-semibold mb-4">Premium Mattress</p>
+                <div class="space-y-3">
+                    
+                    <div class="p-5 bg-[#1e40af]/60 backdrop-blur-md rounded-2xl">
+                        <p class="text-[9px] text-blue-200 uppercase font-bold tracking-widest mb-1">Item Classification</p>
+                        <p class="text-lg font-bold mb-4">Premium Mattress</p>
                         
-                        <p class="text-[10px] text-blue-200 uppercase font-bold tracking-widest mb-2">Material Origin Breakdown</p>
+                        <p class="text-[9px] text-blue-200 uppercase font-bold tracking-widest mb-2">Material Origin Breakdown</p>
                         <div class="flex gap-1 h-2.5 rounded-full overflow-hidden mb-2">
-                            <div class="w-[60%] bg-white"></div>
+                            <div class="w-[60%] bg-blue-100"></div>
                             <div class="w-[30%] bg-blue-300"></div>
                             <div class="w-[10%] bg-blue-500"></div>
                         </div>
@@ -75,33 +86,31 @@
                         </div>
                     </div>
 
-                    <div class="p-5 bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl">
-                        <p class="text-[10px] text-blue-200 uppercase font-bold tracking-widest mb-4">Lifecycle Timeline</p>
-                        <div class="relative border-l-2 border-white/20 ml-2 space-y-5">
+                    <div class="p-5 bg-[#1e40af]/60 backdrop-blur-md rounded-2xl">
+                        <p class="text-[9px] text-blue-200 uppercase font-bold tracking-widest mb-4">Lifecycle Timeline</p>
+                        <div class="relative border-l border-blue-400 ml-2 space-y-5">
                             <div class="relative pl-5">
-                                <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-white/50"></div>
-                                <p class="text-xs text-blue-200">Manufactured</p>
-                                <p class="text-sm font-medium">Jan 2024</p>
+                                <div class="absolute -left-[4.5px] top-1.5 w-2 h-2 rounded-full bg-blue-300"></div>
+                                <p class="text-[10px] text-blue-200 uppercase tracking-wide">Manufactured</p>
+                                <p class="text-sm font-semibold">Jan 2024</p>
                             </div>
                             <div class="relative pl-5">
-                                <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-green-400"></div>
-                                <p class="text-xs text-green-400 font-bold">Deployed (Current)</p>
-                                <p class="text-sm font-medium">Unit 4, Wembley Park</p>
+                                <div class="absolute -left-[4.5px] top-1.5 w-2 h-2 rounded-full bg-green-400"></div>
+                                <p class="text-[10px] text-green-400 font-bold uppercase tracking-wide">Deployed (Current)</p>
+                                <p class="text-sm font-semibold">Unit 4, Wembley Park</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-green-500/20 border border-green-400/30 rounded-2xl p-4 text-center mt-2">
-                        <p class="text-green-300 text-xs font-medium leading-relaxed">
-                            This asset has actively saved <strong>56kg of CO2</strong> from entering the atmosphere.
+                    <div class="bg-[#1e40af]/40 border border-[#22c55e]/30 rounded-2xl p-4 text-center">
+                        <p class="text-[#86efac] text-xs font-medium leading-relaxed">
+                            This asset has actively saved <strong class="text-white">56kg of CO2</strong> from entering the atmosphere.
                         </p>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-
     </main>
-
 </body>
 </html>

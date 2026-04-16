@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaaS | Circular Furniture Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen bg-black text-white flex flex-col items-center justify-center relative overflow-hidden antialiased">
+
+    <div class="absolute top-[-20%] left-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full max-w-5xl px-6 flex flex-col items-center text-center">
+        
+        <div class="mb-16">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                FaaS <span class="font-light">Ecosystem</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light tracking-wide">
+                The operating system for circular real estate. Select your portal to access the network.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mx-auto">
+            
+            <a href="dashboard.html" class="group relative bg-[#1c1c1e] border border-white/10 p-8 rounded-3xl hover:border-white/30 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-2xl">
+                <div class="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <span class="text-2xl">🏢</span>
+                </div>
+                <h2 class="text-xl font-semibold mb-2 text-white">Landlord Portal</h2>
+                <p class="text-sm text-gray-500">Manage assets, track ESG metrics, and view ROI analytics.</p>
+                <div class="mt-6 text-xs font-semibold text-blue-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Enter Portal &rarr;</div>
+            </a>
+
+            <a href="tenant-app.html" class="group relative bg-[#1c1c1e] border border-white/10 p-8 rounded-3xl hover:border-white/30 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-2xl">
+                <div class="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <span class="text-2xl">📱</span>
+                </div>
+                <h2 class="text-xl font-semibold mb-2 text-white">Tenant App</h2>
+                <p class="text-sm text-gray-500">Request maintenance, swap items, and view furniture passports.</p>
+                <div class="mt-6 text-xs font-semibold text-green-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Launch App &rarr;</div>
+            </a>
+
+            <a href="#" class="group relative bg-[#1c1c1e] border border-white/10 p-8 rounded-3xl hover:border-white/30 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer shadow-2xl">
+                <div class="w-16 h-16 rounded-full bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <span class="text-2xl">🏭</span>
+                </div>
+                <h2 class="text-xl font-semibold mb-2 text-white">FaaS Operations</h2>
+                <p class="text-sm text-gray-500">Logistics, warehouse inventory, and deployment routing.</p>
+                <div class="mt-6 text-xs font-semibold text-purple-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Admin Login &rarr;</div>
+            </a>
+
+        </div>
+
+        <div class="mt-20 text-xs text-gray-600 font-medium tracking-widest uppercase">
+            System Status: <span class="text-green-500">Online & Secure</span>
+        </div>
+    </div>
+
+</body>
+</html>

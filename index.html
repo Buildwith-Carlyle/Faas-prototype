@@ -22,11 +22,28 @@
         #mobileMenu { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
         #mobileMenu.open { max-height: 400px; opacity: 1; }
     </style>
+    
     <script>
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
-        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function toggleMobileMenu() { 
+            document.getElementById('mobileMenu').classList.toggle('open'); 
+        }
     </script>
 </head>
 <body class="min-h-screen bg-apple-bg dark:bg-apple-darkBg text-gray-900 dark:text-white antialiased overflow-x-hidden selection:bg-blue-500/30">

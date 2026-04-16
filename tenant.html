@@ -3,40 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="FaaS Tenant">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2111/2111325.png"> <title>Tenant App | FaaS</title>
+    <title>Tenant App | FaaS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        apple: { bg: '#f5f5f7', darkBg: '#000000', card: '#ffffff', darkCard: '#1c1c1e', border: '#e5e7eb', darkBorder: '#38383a' }
-                    }
-                }
-            }
+            theme: { extend: { colors: { apple: { bg: '#f5f5f7', darkBg: '#000000', card: '#ffffff', darkCard: '#1c1c1e', border: '#e5e7eb', darkBorder: '#38383a' } } } }
         }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        /* App-like scrolling */
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-apple-bg dark:bg-apple-darkBg text-gray-900 dark:text-white antialiased">
 
-    <div class="flex flex-col h-screen max-w-md mx-auto bg-apple-bg dark:bg-apple-darkBg overflow-hidden">
+    <div class="flex flex-col h-screen max-w-md mx-auto bg-apple-bg dark:bg-apple-darkBg overflow-hidden relative shadow-2xl sm:border-x border-apple-border dark:border-apple-darkBorder">
         
-        <header class="px-6 pt-14 pb-4 bg-apple-card/80 dark:bg-apple-darkCard/80 backdrop-blur-xl border-b border-apple-border dark:border-apple-darkBorder sticky top-0 z-50">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-[10px] font-bold tracking-[0.2em] text-blue-500 uppercase">FaaS Direct</span>
-                <div class="flex gap-1">
+        <header class="px-6 pt-12 pb-4 bg-apple-card/80 dark:bg-apple-darkCard/80 backdrop-blur-xl border-b border-apple-border dark:border-apple-darkBorder sticky top-0 z-50">
+            <div class="flex justify-between items-center mb-3">
+                <a href="index.html" class="flex items-center gap-1 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors p-1 -ml-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    <span class="text-xs font-semibold">Home</span>
+                </a>
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-blue-500 uppercase">FaaS Direct</span>
                     <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
                 </div>
             </div>
@@ -44,7 +38,6 @@
         </header>
 
         <main class="flex-1 overflow-y-auto no-scrollbar p-6 space-y-6">
-            
             <div class="bg-gradient-to-br from-blue-600 to-blue-700 rounded-[32px] p-6 text-white shadow-xl">
                 <p class="text-blue-100 text-[10px] uppercase font-bold tracking-widest mb-1">Active Rental</p>
                 <h2 class="text-2xl font-bold mb-6">3-Seater Sofa</h2>
@@ -62,12 +55,10 @@
 
             <div class="grid grid-cols-2 gap-4">
                 <button class="bg-apple-card dark:bg-apple-darkCard p-5 rounded-[28px] border border-apple-border dark:border-apple-darkBorder flex flex-col items-center gap-3 active:scale-95 transition-all">
-                    <span class="text-2xl">⚠️</span>
-                    <span class="text-xs font-bold uppercase tracking-widest">Report</span>
+                    <span class="text-2xl">⚠️</span><span class="text-xs font-bold uppercase tracking-widest">Report</span>
                 </button>
                 <button class="bg-apple-card dark:bg-apple-darkCard p-5 rounded-[28px] border border-apple-border dark:border-apple-darkBorder flex flex-col items-center gap-3 active:scale-95 transition-all">
-                    <span class="text-2xl">🔄</span>
-                    <span class="text-xs font-bold uppercase tracking-widest">Swap</span>
+                    <span class="text-2xl">🔄</span><span class="text-xs font-bold uppercase tracking-widest">Swap</span>
                 </button>
             </div>
 
@@ -76,14 +67,7 @@
                     "This sofa has saved <strong>56kg of CO2</strong>. By choosing FaaS, you are part of the circular economy." 🌱
                 </p>
             </div>
-
         </main>
-
-        <nav class="h-20 bg-apple-card/80 dark:bg-apple-darkCard/80 backdrop-blur-xl border-t border-apple-border dark:border-apple-darkBorder flex items-center justify-around px-8 pb-4">
-            <span class="text-xl opacity-100">🏠</span>
-            <span class="text-xl opacity-30">📋</span>
-            <span class="text-xl opacity-30">👤</span>
-        </nav>
     </div>
 </body>
 </html>

@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FaaS Registry">
-    
     <title>DPP Verified Certificate | FaaS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -17,19 +15,18 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         
-        /* Adapts the certificate border to Light/Dark Mode */
         .cert-border { border: 2px solid #e5e7eb; position: relative; }
         .dark .cert-border { border: 2px solid #38383a; }
         .cert-border::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); }
-        
         * { transition-property: background-color, border-color, color; transition-duration: 300ms; transition-timing-function: ease-in-out; }
     </style>
 
     <script>
+        // GLOBAL THEME MEMORY
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -46,6 +43,46 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
+
+        // ==========================================
+        // PROPRIETARY FAAS PREDICTIVE ALGORITHM (IP)
+        // ==========================================
+        function runPredictiveAlgorithm() {
+            // 1. Asset Variables (In a real app, this comes from your database)
+            const manufactureDate = new Date('2024-01-15');
+            const currentDate = new Date();
+            
+            // 2. Material Durability Index (Steel = 1.0, Foam = 0.6, Fabric = 0.5)
+            // Premium Mattress = 45% Steel, 30% Cotton, 25% Polymer
+            const baseDurabilityScore = (0.45 * 1.0) + (0.30 * 0.5) + (0.25 * 0.7); 
+            
+            // 3. Time Decay Logic
+            const monthsDeployed = (currentDate.getFullYear() - manufactureDate.getFullYear()) * 12 + (currentDate.getMonth() - manufactureDate.getMonth());
+            const degradationPerMonth = 0.85 / baseDurabilityScore; // Math: Lower durability = faster degradation
+            
+            // 4. Calculate Live Health
+            let currentHealth = 100 - (monthsDeployed * degradationPerMonth);
+            if (currentHealth < 0) currentHealth = 0;
+            if (currentHealth > 100) currentHealth = 100;
+
+            // 5. Predict Swap Date (When health hits 40%)
+            const monthsUntilSwap = Math.floor((currentHealth - 40) / degradationPerMonth);
+            let optimalSwapDate = new Date(currentDate);
+            optimalSwapDate.setMonth(optimalSwapDate.getMonth() + monthsUntilSwap);
+
+            // 6. Push Math to the UI
+            document.getElementById('liveHealthScore').innerText = currentHealth.toFixed(1) + '%';
+            document.getElementById('healthProgressBar').style.width = currentHealth + '%';
+            document.getElementById('swapPrediction').innerText = optimalSwapDate.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+            
+            // Color code the health bar
+            if(currentHealth > 75) document.getElementById('healthProgressBar').classList.add('bg-green-500');
+            else if(currentHealth > 40) document.getElementById('healthProgressBar').classList.add('bg-yellow-500');
+            else document.getElementById('healthProgressBar').classList.add('bg-red-500');
+        }
+
+        // Run the math as soon as the page loads
+        window.onload = runPredictiveAlgorithm;
     </script>
 </head>
 <body class="min-h-screen bg-apple-bg dark:bg-apple-darkBg text-gray-900 dark:text-white antialiased flex flex-col pb-12">
@@ -56,7 +93,6 @@
         </a>
         <div class="flex items-center gap-4">
             <span class="text-xs font-bold uppercase tracking-widest text-gray-500 hidden sm:inline-block">Verified Document</span>
-            
             <button onclick="toggleTheme()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 dark:bg-gray-700 transition-colors duration-300 focus:outline-none shadow-inner">
                 <span class="inline-block h-4 w-4 transform rounded-full bg-white dark:bg-gray-400 shadow transition-transform duration-300 translate-x-1 dark:translate-x-6"></span>
             </button>
@@ -74,6 +110,34 @@
                 <div class="mt-6 md:mt-0 text-left md:text-right w-full md:w-auto">
                     <div class="bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 px-4 py-2 rounded font-bold text-xs mb-2 border border-blue-100 dark:border-blue-500/20 inline-block md:block">CIRCULARITY GRADE: A+</div>
                     <p class="text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-widest font-bold">Verified by FaaS Protocol 2026</p>
+                </div>
+            </div>
+
+            <div class="mb-10 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-100 dark:border-blue-500/20 rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xs font-bold text-blue-800 dark:text-blue-300 uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                        Predictive Asset Health Algorithm
+                    </h3>
+                    <span class="text-[9px] mono bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded">FaaS AI v1.0</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Live Degradation Score</span>
+                            <span class="text-2xl font-bold mono tracking-tight text-gray-900 dark:text-white" id="liveHealthScore">--%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-800 h-2.5 rounded-full overflow-hidden">
+                            <div id="healthProgressBar" class="h-full w-0 transition-all duration-1000 ease-out"></div>
+                        </div>
+                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-2 italic">Based on material stress, usage time, and tenant maintenance history.</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-black/40 border border-gray-200 dark:border-white/10 p-4 rounded-xl shadow-sm text-center">
+                        <p class="text-[10px] uppercase tracking-widest font-bold text-gray-500 mb-1">Optimal Circular Swap Date</p>
+                        <p class="text-xl font-bold text-purple-600 dark:text-purple-400 mono" id="swapPrediction">Calculating...</p>
+                    </div>
                 </div>
             </div>
 
@@ -103,39 +167,27 @@
             <div class="mb-12">
                 <h3 class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase mb-6 tracking-widest text-left md:text-center">Lifecycle Events</h3>
                 <div class="relative space-y-6 md:space-y-8">
-                    
                     <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-0">
-                        <div class="w-24 text-xs mono text-gray-400 dark:text-gray-500">JAN 2026</div>
+                        <div class="w-24 text-xs mono text-gray-400 dark:text-gray-500">JAN 2024</div>
                         <div class="hidden md:block w-4 h-4 rounded-full bg-blue-500 mx-4 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
                         <div class="flex-1 bg-gray-50 dark:bg-[#121214] p-4 rounded-lg border border-gray-200 dark:border-white/10 w-full">
                             <p class="text-sm font-bold text-gray-900 dark:text-white">Manufacturing Complete</p>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Facility: Manchester Eco-Plant (Facility #12)</p>
                         </div>
                     </div>
-                    
                     <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-0">
-                        <div class="w-24 text-xs mono text-gray-400 dark:text-gray-500">FEB 2026</div>
+                        <div class="w-24 text-xs mono text-gray-400 dark:text-gray-500">FEB 2024</div>
                         <div class="hidden md:block w-4 h-4 rounded-full bg-green-500 mx-4 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
                         <div class="flex-1 bg-gray-50 dark:bg-[#121214] p-4 rounded-lg border border-gray-200 dark:border-white/10 w-full">
                             <p class="text-sm font-bold text-gray-900 dark:text-white">First Deployment</p>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Location: Wembley Park Development - Unit 4</p>
                         </div>
                     </div>
-                    
-                    <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-0 italic opacity-60">
-                        <div class="w-24 text-xs mono text-gray-400 dark:text-gray-500">PENDING</div>
-                        <div class="hidden md:block w-4 h-4 border-2 border-gray-300 dark:border-gray-600 rounded-full mx-4"></div>
-                        <div class="flex-1 bg-white dark:bg-apple-darkCard p-4 rounded-lg border-dashed border-2 border-gray-300 dark:border-gray-700 w-full">
-                            <p class="text-sm font-bold text-gray-900 dark:text-white">Refurbishment & Re-deployment</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Scheduled for End of Subscription cycle</p>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
 
             <div class="mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col-reverse md:flex-row justify-between items-center gap-6 md:gap-0">
-                <div class="text-[9px] md:text-[10px] text-gray-400 dark:text-gray-500 mono text-center md:text-left">FaaS PROTOCOL v1.02 // DISTRIBUTED LEDGER VERIFIED</div>
+                <div class="text-[9px] md:text-[10px] text-gray-400 dark:text-gray-500 mono text-center md:text-left">FaaS PROTOCOL v2.0 // PREDICTIVE AI ENABLED</div>
                 <button onclick="window.print()" class="bg-black dark:bg-white text-white dark:text-black text-xs px-6 py-3.5 md:py-3 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition active:scale-95 w-full md:w-auto shadow-lg tracking-wide">DOWNLOAD PDF</button>
             </div>
             

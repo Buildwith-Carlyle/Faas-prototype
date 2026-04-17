@@ -27,6 +27,7 @@
         #mobileMenu { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
         #mobileMenu.open { max-height: 400px; opacity: 1; }
         
+        /* Chat UI Animations */
         .chat-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
         .chat-closed { transform: translateY(20px); opacity: 0; pointer-events: none; }
         .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
@@ -53,6 +54,7 @@
     </style>
     
     <script>
+        // 1. Theme Logic
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -70,10 +72,12 @@
             }
         }
 
+        // 2. Mobile Menu Logic
         function toggleMobileMenu() { 
             document.getElementById('mobileMenu').classList.toggle('open'); 
         }
 
+        // 3. AI Copilot Chat Logic
         function toggleChat() {
             const chatBox = document.getElementById('ai-chat-box');
             if (chatBox.classList.contains('chat-closed')) {
@@ -92,6 +96,7 @@
             if (!message) return;
             const chatHistory = document.getElementById('chat-history');
 
+            // Add user message
             chatHistory.innerHTML += `
                 <div class="flex justify-end mb-4">
                     <div class="bg-blue-600 text-white text-sm px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-[85%] shadow-sm">${message}</div>
@@ -100,6 +105,7 @@
             inputField.value = '';
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
+            // Show typing indicator
             const typingIndicatorId = 'typing-' + Date.now();
             chatHistory.innerHTML += `
                 <div id="${typingIndicatorId}" class="flex justify-start mb-4">
@@ -112,6 +118,7 @@
             `;
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
+            // Simulated AI Response
             setTimeout(() => {
                 document.getElementById(typingIndicatorId).remove();
                 const aiResponse = `
@@ -128,9 +135,7 @@
             }, 1800);
         }
 
-        // ==========================================
-        // PROPRIETARY AI VIRTUAL STAGING SIMULATOR
-        // ==========================================
+        // 4. AI Virtual Staging Simulator Logic
         let selectedTier = 'premium';
 
         function setTier(tier) {
@@ -152,12 +157,10 @@
             const scanLine = document.getElementById('scan-line');
             const statusText = document.getElementById('status-text');
 
-            // 1. Hide upload UI, show empty room and start scanning
             placeholder.classList.add('hidden');
             visualizerBox.classList.remove('border-dashed');
             visualizerBox.classList.add('bg-black');
             
-            // Show base empty room
             resultImg.src = "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80";
             resultImg.classList.remove('hidden');
             resultImg.style.opacity = '0.5';
@@ -166,20 +169,18 @@
             statusText.innerText = "FaaS AI is analyzing room dimensions and light sources...";
             statusText.classList.remove('hidden');
 
-            // 2. Simulate AI Processing Delay
             setTimeout(() => {
                 statusText.innerText = `Deploying ${selectedTier === 'premium' ? 'Premium' : 'Essential'} Tier assets...`;
                 
                 setTimeout(() => {
-                    // 3. Reveal Final Generated Image
                     scanLine.classList.add('hidden');
                     statusText.classList.add('hidden');
                     resultImg.style.opacity = '1';
                     
                     if(selectedTier === 'essential') {
-                        resultImg.src = "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1200&q=80"; // Clean, basic furniture
+                        resultImg.src = "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1200&q=80"; 
                     } else {
-                        resultImg.src = "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"; // Luxury furniture
+                        resultImg.src = "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"; 
                     }
                 }, 1500);
             }, 1500);
@@ -261,7 +262,6 @@
             </div>
 
             <div class="bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-white/5 rounded-3xl p-6 md:p-10 shadow-xl flex flex-col lg:flex-row gap-10">
-                
                 <div class="w-full lg:w-1/3 flex flex-col justify-center space-y-6">
                     <div>
                         <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-3">1. Select Subscription Tier</h3>
@@ -287,22 +287,17 @@
 
                 <div class="w-full lg:w-2/3">
                     <div id="visualizer-box" class="w-full aspect-[16/9] md:aspect-[21/9] bg-gray-50 dark:bg-[#121214] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden transition-all duration-500">
-                        
                         <div id="upload-placeholder" class="text-center p-6">
                             <span class="text-4xl opacity-50 mb-4 block">📸</span>
                             <p class="text-sm font-medium text-gray-500">Your generated room will appear here.</p>
                         </div>
-
                         <div id="scan-line" class="scanner-line hidden"></div>
-                        
                         <div id="status-text" class="hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/80 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full z-20 backdrop-blur-md">
                             Scanning room dimensions...
                         </div>
-
                         <img id="result-image" src="" class="hidden w-full h-full object-cover transition-opacity duration-1000 z-0">
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -334,5 +329,41 @@
         </div>
     </section>
 
-    </body>
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-black dark:bg-white text-white dark:text-black rounded-full p-4 shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95 transition-all z-50 group flex items-center gap-3 border border-white/10 dark:border-black/10">
+        <span class="text-xl group-hover:animate-bounce">👋</span>
+        <span class="text-sm font-bold tracking-wide pr-2 hidden md:block">Chat with Sales AI</span>
+    </button>
+
+    <div id="ai-chat-box" class="chat-closed fixed bottom-24 right-4 left-4 md:left-auto md:right-10 w-auto md:w-[360px] h-[480px] max-h-[70vh] bg-apple-card dark:bg-[#121214] border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden transition-all duration-300">
+        
+        <div class="h-14 bg-black dark:bg-white flex items-center justify-between px-4 text-white dark:text-black shrink-0">
+            <div class="flex items-center gap-2">
+                <span class="text-lg">🤖</span>
+                <div>
+                    <h3 class="text-sm font-bold">FaaS Concierge</h3>
+                    <p class="text-[9px] text-gray-300 dark:text-gray-600 mono uppercase">Online</p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-gray-300 dark:text-gray-600 hover:text-white dark:hover:text-black p-1 text-lg">&times;</button>
+        </div>
+
+        <div id="chat-history" class="flex-1 overflow-y-auto p-4 bg-gray-50/50 dark:bg-black/20 text-sm no-scrollbar">
+            <div class="flex justify-start mb-4">
+                <div class="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white px-4 py-3 rounded-2xl rounded-tl-sm max-w-[90%] shadow-sm leading-relaxed">
+                    Hello! I'm the FaaS AI Assistant. I can explain our Circular Economy model, calculate potential CapEx savings, or help you book a demo. <br><br><strong>How can I help you today?</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3 bg-white dark:bg-[#121214] border-t border-gray-100 dark:border-white/5 shrink-0">
+            <div class="relative flex items-center">
+                <input type="text" id="chat-input" onkeypress="sendMessage(event)" placeholder="Ask how FaaS works..." class="w-full bg-gray-100 dark:bg-black border border-transparent dark:border-white/10 rounded-full pl-4 pr-10 py-3 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder-gray-400">
+                <button onclick="sendMessage()" class="absolute right-2 text-blue-600 dark:text-blue-400 hover:text-blue-500 p-2 bg-white dark:bg-[#121214] rounded-full">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
